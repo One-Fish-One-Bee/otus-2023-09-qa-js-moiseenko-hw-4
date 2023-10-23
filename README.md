@@ -1,1 +1,1 @@
-# otus-2023-09-qa-js-moiseenko-hw-6
+# otus-2023-09-qa-js-moiseenko-hw-4
