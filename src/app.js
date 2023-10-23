@@ -1,42 +1,18 @@
 /**
- * Проверка имени пользователя
- * @param {string} name
- * @returns {boolean}
+ * Подсчёт суммы баллов
+ * @param {key: string, values: number} scores 
+ * @example { Anna: 10, Olga: 1, Ivan: 5 } // 16
+ * @example { Anna: 20, Olga: 10, Ivan: 50 } // 80
+ * @example {} // 80
+ * @returns {number}
  */
 
-export const nameIsValid = (name) =>
-  !!name && name.length >= 2 && !name.includes(" ");
-
-/**
- * Удаление пробелов из строки
- *
- * @param {string} text
- * @returns {string}
- */
-
-export const fullTrim = (text) => (text || "").replace(/\s/g, "");
-
-/**
- * Подсчёт суммы заказа
- *
- * @param {[{quantity: number, name?: string, price: number}]} items
- * @param {number} discount
- * @example getTotal([{ price: 10, quantity: 10 }]) // 100
- * @example getTotal([{ price: 10, quantity: 1 }]) // 10
- * @example getTotal([{ price: 10, quantity: 1 }, { price: 10, quantity: 9 }]) // 100
- * @example getTotal([{ price: 10, quantity: 0 }], { price: 10, quantity: 9 }) // 90
- * @example getTotal([{ price: 10, quantity: 10 }], 10) // 90
- * @example getTotal([{ price: 10, quantity: 10 }], 100) // 0
- */
-export const getTotal = (items = [], discount = 0) => {
-  if (typeof discount !== "number") {
-    throw new Error("Скидка должна быть числом");
+export const get_score = (scores) => {
+  if (typeof scores !== "object"){
+    throw new Error("Параметр должен быть объектом");
   }
-  if (discount < 0) {
-    throw new Error("Процент скидки не может быть отрицательным");
+  if (typeof scores['key'] !== "undefined"){
+    throw new Error("В объекте нет пропущенных ключей");
   }
-  const total = items.reduce((acc, item) => {
-    return acc + item.price * item.quantity;
-  }, 0);
-  return total - (total * discount) / 100;
-};
+  return Object.values(scores).reduce((a, b) => a + b, 0)
+}
